@@ -6,6 +6,7 @@ import se.stagehand.swing.lib.PlayerEffectItem
 import scala.swing.TextField
 import scala.swing.Label
 import se.stagehand.lib.scripting.Effect
+import scala.swing.event.EditDone
 
 object PopupGUI extends EffectGUI {
   val peer = classOf[PopupText]
@@ -14,10 +15,22 @@ object PopupGUI extends EffectGUI {
   def playerItem(effect: Effect) = new PopupPlayerItem(checkEffect[PopupText](effect))
 }
 
-class PopupEditorItem(e:PopupText) extends TextField with EditorEffectItem[PopupText] {
+class PopupEditorItem(e:PopupText) extends TextField("message") with EditorEffectItem[PopupText] {
   def effect = e
+  text = effect.message
+  
+  listenTo(this)
+  
+  reactions += {
+    case e:EditDone => {
+      effect.message = text
+      peer.transferFocusBackward
+    }
+  }
 }
 
 class PopupPlayerItem(e:PopupText) extends Label with PlayerEffectItem[PopupText] {
   def effect = e
+  
+  text = "M: " + effect.message
 }

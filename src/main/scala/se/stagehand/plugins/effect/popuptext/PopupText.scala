@@ -4,17 +4,25 @@ import se.stagehand.lib.scripting._
 import scala.xml.Node
 import scala.swing._
 
-class PopupText extends Effect {
+class PopupText(id:Int) extends Effect(id) {
+  def this() = this(ID.unique)
   def componentName = "PopupText"
     
+  var message = "message"
     
-  def trigger {}
+    
+  def trigger {
+    Dialog.showMessage(null, message, "PopupText", Dialog.Message.Plain )
+  }
 
-  def readInstructions(in:Node) {
-    
+  override def readInstructions(in:Node) {
+    super.readInstructions(in)
+    message = (in \\ "message").text
   }
-  def executeInstructions(params: Any*) {
+  override def generateInstructions = {
+    implicit var xml = super.generateInstructions
+    xml = addChild(<message>{message}</message>)
     
+    xml
   }
-  def generateInstructions = null
 }
