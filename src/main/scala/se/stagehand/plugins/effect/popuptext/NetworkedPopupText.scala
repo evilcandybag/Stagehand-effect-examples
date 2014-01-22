@@ -5,21 +5,18 @@ import se.stagehand.lib.scripting.ID
 import scala.swing.Dialog
 import scala.xml.Node
 import se.stagehand.lib.Log
+import se.stagehand.lib.scripting.network.Capabilities
 
 class NetworkedPopupText(id:Int) extends NetworkedEffect(id) {
   def this() = this(ID.unique)
-  val log = Log.getLog(this.getClass())
   
   def componentName = "NetworkedPopupText"
   
   def runArgs = {
-    Map("text" -> message)
+    Map(Capabilities.SIMPLE_TEXT -> message)
   }
   
-  override def trigger {
-    log.debug("Effect triggered")
-    super.trigger
-  }
+  def requirements = Set(Capabilities.SIMPLE_TEXT)
 
   var message = "message"
     
