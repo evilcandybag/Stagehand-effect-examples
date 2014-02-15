@@ -12,8 +12,8 @@ class NetworkedPopupText(id:Int) extends NetworkedEffect(id) {
   
   def componentName = "NetworkedPopupText"
   
-  def runArgs = {
-    Map(Capabilities.SIMPLE_TEXT -> message)
+  override def runArgs = {
+    Map(Capabilities.SIMPLE_TEXT -> message) ++ super.runArgs
   }
   
   def requirements = Set(Capabilities.SIMPLE_TEXT)
