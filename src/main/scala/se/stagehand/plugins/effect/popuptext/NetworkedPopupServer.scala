@@ -10,7 +10,7 @@ import se.stagehand.lib.scripting.network.Capabilities
 import scala.swing.Dialog
 
 object PopupServer extends EffectServer {
-  def name = "PopupServer"
+  def defaultName = "PopupServer"
   def properties = {
     val caps = (NetworkedEffect.CAPABILITIES, Capabilities.SIMPLE_TEXT)
     val desc = (NetworkedEffect.DESCRIPTION, "Server providing viewing of simple text by means of a popup window.")
